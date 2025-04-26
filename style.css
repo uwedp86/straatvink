@@ -1,0 +1,74 @@
+body {
+    font-family: sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+
+h1 {
+    color: #333;
+}
+
+.tellers {
+    width: 100%;
+    max-width: 400px; /* Maximale breedte voor leesbaarheid */
+    margin-bottom: 20px;
+}
+
+.teller-item {
+    display: flex;
+    justify-content: space-between; /* Knoppen links, tellers rechts */
+    align-items: center;
+    background-color: #fff;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+button {
+    padding: 15px 20px;
+    font-size: 1.1em;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    flex-grow: 1; /* Laat knop groeien */
+    margin-right: 15px; /* Ruimte tussen knop en teller */
+}
+
+button:active { /* Visuele feedback bij klikken */
+    background-color: #0056b3;
+}
+
+.count {
+    font-size: 1.5em;
+    font-weight: bold;
+    min-width: 30px; /* Zorgt dat de layout stabiel blijft */
+    text-align: right;
+}
+
+#btn-reset {
+    background-color: #dc3545;
+    margin-top: 20px;
+    width: 100%;
+    max-width: 400px; /* Zelfde breedte als tellers */
+}
+
+#btn-reset:active {
+    background-color: #c82333;
+}
+
+/* Media query voor eventuele aanpassingen op kleinere schermen indien nodig */
+@media (max-width: 600px) {
+    button {
+        padding: 12px 15px;
+        font-size: 1em;
+    }
+    .teller-item {
+        padding: 12px;
+    }
+}
