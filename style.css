@@ -111,15 +111,13 @@ h2 {
     margin-bottom: 10px; /* Minder ruimte onder H2 hier */
 }
 
-/* --- WIJZIGING: .tellers is nu de Grid Container --- */
 .tellers {
     width: 100%;
     margin-bottom: 20px;
-    display: grid; /* Grid container voor header en alle items */
-    /* Definieer kolommen: Categorie (flexibel, min 120px), Q1-Totaal (flexibel, min 40px) */
+    display: grid;
     grid-template-columns: minmax(160px, 2fr) repeat(5, minmax(40px, 1fr));
-    gap: 0 5px; /* Geen verticale gap, 5px horizontale gap */
-    border-bottom: 2px solid var(--light-gray); /* Lijn onderaan de hele grid */
+    gap: 0 5px;
+    border-bottom: 2px solid var(--light-gray);
 }
 
 .count-button {
@@ -133,10 +131,19 @@ h2 {
     color: white;
     text-align: left;
     transition: background-color 0.2s ease;
-    /* Verwijder flex-grow en margin */
-    width: 100%; /* Vul de grid cel */
-    box-sizing: border-box; /* Houd padding binnen de breedte */
+    width: 100%;
+    box-sizing: border-box;
+    /* NIEUW: voor uitlijning icoon + tekst */
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
 }
+
+/* NIEUW: Ruimte naast het icoon */
+.count-button i {
+  margin-right: 8px;
+}
+
 
 .count-button:hover {
      background-color: #366a94;
@@ -146,213 +153,68 @@ h2 {
     background-color: #2a5271;
 }
 
-.count { /* Algemene stijl voor alle count spans */
+.count {
     text-align: right;
     padding: 5px;
     font-size: 1.1em;
     border-radius: 4px;
     box-sizing: border-box;
-    display: flex; /* Gebruik flex om inhoud te centreren/uitlijnen */
+    display: flex;
     align-items: center;
-    justify-content: flex-end; /* Horizontaal rechts uitlijnen */
-    min-height: 40px; /* Zorg voor minimale hoogte */
+    justify-content: flex-end;
+    min-height: 40px;
 }
 
 .reset-button {
-    display: block;
-    width: 100%;
-    padding: 12px 20px;
-    font-size: 1.1em;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    background-color: var(--accent-color);
-    color: white;
-    margin-top: 20px;
-    transition: background-color 0.2s ease;
+    display: block; width: 100%; padding: 12px 20px; font-size: 1.1em; cursor: pointer; border: none; border-radius: 5px; background-color: var(--accent-color); color: white; margin-top: 20px; transition: background-color 0.2s ease;
 }
-.reset-button:hover {
-     background-color: #e69500;
-}
+.reset-button:hover { background-color: #e69500; }
+.reset-button:active { background-color: #cc8400; }
 
-.reset-button:active {
-    background-color: #cc8400;
-}
-
-/* Interval Selector Styling (onveranderd) */
-.interval-selector {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-    margin-bottom: 25px;
-    background-color: var(--light-gray);
-    padding: 15px;
-    border-radius: var(--border-radius);
-    justify-content: center;
-}
-.interval-selector label {
-    cursor: pointer; padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; background-color: var(--white); transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; display: inline-flex; align-items: center; font-size: 0.9em;
-}
+/* Interval Selector Styling */
+.interval-selector { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; background-color: var(--light-gray); padding: 15px; border-radius: var(--border-radius); justify-content: center; }
+.interval-selector label { cursor: pointer; padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; background-color: var(--white); transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; display: inline-flex; align-items: center; font-size: 0.9em; }
 .interval-selector input[type="radio"] { margin-right: 6px; accent-color: var(--primary-color); }
 .interval-selector label:has(input[type="radio"]:checked) { background-color: var(--primary-color); color: var(--white); border-color: var(--primary-color); }
 
-/* --- WIJZIGING: Teller Header is nu een Grid Item --- */
-.teller-header {
-    /* Is nu onderdeel van de .tellers grid, geen aparte grid meer */
-    grid-column: 1 / -1; /* Spreid over alle kolommen van de parent grid */
-    display: contents; /* Laat kinderen direct in de parent grid plaatsen */
-    font-weight: bold;
-    font-size: 0.85em;
-    color: #555;
-    /* Verwijder padding/margin/border hier, styling per cel */
-}
-.teller-header span {
-    padding: 8px 5px; /* Padding binnen elke header cel */
-    text-align: right;
-    border-bottom: 2px solid var(--light-gray);
-}
-.teller-header span:first-child {
-    text-align: left;
-}
+/* Teller Header */
+.teller-header { grid-column: 1 / -1; display: contents; font-weight: bold; font-size: 0.85em; color: #555; }
+.teller-header span { padding: 8px 5px; text-align: right; border-bottom: 2px solid var(--light-gray); }
+.teller-header span:first-child { text-align: left; }
 
-/* --- WIJZIGING: Teller Item is nu een Grid Item --- */
-.teller-item {
-    /* Is nu onderdeel van de .tellers grid, geen aparte grid meer */
-    grid-column: 1 / -1; /* Spreid over alle kolommen van de parent grid */
-    display: contents; /* Belangrijk: laat kinderen (button, spans) direct in de parent grid plaatsen */
-    /* Verwijder padding/margin/border/gap hier */
-}
+/* Teller Item */
+.teller-item { grid-column: 1 / -1; display: contents; }
 
-/* Styling voor de elementen *binnen* een .teller-item, nu als directe grid cellen */
-.teller-item > * { /* Stijl alle directe kinderen (button, spans) */
-    padding: 10px 5px; /* Padding voor elke cel in de rij */
-    border-bottom: 1px solid var(--light-gray); /* Lijn onder elke cel */
-    display: flex; /* Gebruik flexbox voor interne uitlijning */
-    align-items: center; /* Centreer verticaal */
-}
-.teller-item:last-child > * {
-     border-bottom: none; /* Geen lijn onder de cellen van de laatste rij */
-}
+/* Cellen binnen Teller Item */
+.teller-item > * { padding: 10px 5px; border-bottom: 1px solid var(--light-gray); display: flex; align-items: center; }
+.teller-item:last-child > * { border-bottom: none; }
+.teller-item .count-button { justify-content: flex-start; padding: 5px 10px; } /* Override algemene .teller-item > * padding */
+.teller-item .count { justify-content: flex-end; font-size: 1.1em; min-height: auto; }
+.teller-item .interval-count { color: var(--text-color); background-color: #f0f0f0; }
+.teller-item .total-count { font-weight: bold; color: var(--primary-color); font-size: 1.2em; background-color: #e9fafa; }
 
-.teller-item .count-button {
-    /* Specifieke uitlijning voor de knop cel indien nodig */
-    justify-content: flex-start; /* Tekst links in knop */
-    padding: 5px 10px; /* Knop padding aanpassen */
-}
-
-.teller-item .count {
-    justify-content: flex-end; /* Cijfers rechts in de cel */
-    font-size: 1.1em;
-     /* Reset min-height, laat grid/content hoogte bepalen */
-    min-height: auto;
-    /* Background/color per type count */
-}
-
-.teller-item .interval-count {
-    color: var(--text-color);
-    background-color: #f0f0f0;
-}
-
-.teller-item .total-count {
-    font-weight: bold;
-    color: var(--primary-color);
-    font-size: 1.2em;
-    background-color: #e9fafa; /* Licht andere achtergrond voor totaal */
-}
-
-/* Footer (onveranderd) */
+/* Footer */
 .app-footer { text-align: center; margin-top: 40px; padding: 20px; font-size: 0.9em; color: #555; border-top: 1px solid var(--light-gray); }
 .app-footer a { color: var(--primary-color); text-decoration: none; }
 .app-footer a:hover { text-decoration: underline; }
 
 /* --- Responsive aanpassingen --- */
-/* Behoud de meeste mobiele stijlen, maar pas aan voor de nieuwe structuur */
 @media (max-width: 768px) {
-    .tellers {
-        /* Op mobiel, geen grid meer voor het hele blok, maar items onder elkaar */
-        display: block;
-         border-bottom: none; /* Geen border onderaan container */
-    }
+    .tellers { display: block; border-bottom: none; }
+    .teller-header { display: none; }
+    .teller-item { display: block; grid-column: auto; margin-bottom: 20px; padding: 15px; border: 1px solid var(--light-gray); border-radius: var(--border-radius); background-color: var(--white); }
+    .teller-item > * { border-bottom: none; padding: 0; display: block; align-items: stretch; min-height: auto; }
+    /* Behoud display: inline-flex voor de knop op mobiel */
+    .teller-item .count-button { width: 100%; margin-bottom: 10px; text-align: center; padding: 10px 15px; display: inline-flex; align-items: center; justify-content: center; /* Centreer icoon+tekst */ }
+    .teller-item .count-button i { margin-right: 8px; } /* Behoud ruimte */
 
-    .teller-header {
-        display: none; /* Verberg desktop header */
-    }
-
-    .teller-item {
-         /* teller-item is GEEN grid item meer, maar een container */
-         display: block; /* Blok element */
-         grid-column: auto; /* Reset */
-         margin-bottom: 20px; /* Ruimte tussen items */
-         padding: 15px; /* Padding rondom */
-         border: 1px solid var(--light-gray);
-         border-radius: var(--border-radius);
-         background-color: var(--white); /* Achtergrond voor het hele blok */
-    }
-    .teller-item > * {
-        /* Reset border/padding van desktop cellen */
-        border-bottom: none;
-        padding: 0;
-        display: block; /* Elementen onder elkaar */
-        align-items: stretch; /* Reset */
-        min-height: auto; /* Reset */
-    }
-
-    .teller-item .count-button {
-        width: 100%;
-        margin-bottom: 10px;
-        text-align: center;
-        padding: 10px 15px; /* Herstel padding */
-    }
-
-    /* Grid voor de cijfers op mobiel (binnen .teller-item) */
-    .teller-item .counts-grid-mobile { /* Nieuwe wrapper div nodig in HTML of selecteer de spans anders */
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); /* Flexibele grid */
-        gap: 5px;
-        width: 100%;
-    }
-
+    /* Grid voor de cijfers op mobiel */
+    .teller-item div.counts-grid-mobile { display: grid; grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); gap: 5px; width: 100%; }
      /* Styling voor elk cijfer binnen de mobiele grid */
-     .teller-item .count {
-         text-align: center;
-         font-size: 1.1em;
-         padding: 5px 3px;
-         box-sizing: border-box;
-         border: 1px solid #eee;
-         border-radius: 4px;
-         background-color: #f0f0f0;
-         position: relative;
-         min-height: 45px;
-         display: flex; /* Gebruik flex voor interne uitlijning */
-         flex-direction: column; /* Label boven, cijfer onder */
-         justify-content: center; /* Centreer inhoud */
-         align-items: center;
-         padding-top: 18px; /* Ruimte voor label */
-     }
-     .teller-item .total-count {
-         font-size: 1.2em;
-         background-color: var(--light-gray);
-         color: var(--primary-color);
-         font-weight: bold;
-         /* Evt. totaal breder maken op mobiel */
-         grid-column: 1 / -1; /* Spreid over volle breedte onder de Q's */
-         margin-top: 5px;
-     }
-
-     .teller-item .count::before {
-         content: attr(data-label);
-         display: block;
-         font-size: 0.7em;
-         color: #666;
-         font-weight: normal;
-         position: absolute;
-         top: 3px;
-         left: 3px;
-         right: 3px;
-         text-align: center;
-     }
+     .teller-item .counts-grid-mobile > span.count { text-align: center; font-size: 1.1em; padding: 5px 3px; box-sizing: border-box; border: 1px solid #eee; border-radius: 4px; background-color: #f0f0f0; position: relative; min-height: 45px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 18px; }
+     .teller-item .counts-grid-mobile > span.total-count { font-size: 1.2em; background-color: var(--light-gray); color: var(--primary-color); font-weight: bold; grid-column: 1 / -1; margin-top: 5px; }
+     .teller-item .counts-grid-mobile > span.count::before { content: attr(data-label); display: block; font-size: 0.7em; color: #666; font-weight: normal; position: absolute; top: 3px; left: 3px; right: 3px; text-align: center; }
 }
-/* Verdere fine-tuning voor kleinere schermen indien nodig... */
 @media (max-width: 480px) {
      .form-grid { grid-template-columns: 1fr; }
      .form-grid label { text-align: left; margin-bottom: -5px; }
@@ -360,13 +222,7 @@ h2 {
      .interval-selector { gap: 8px; padding: 10px; }
      .interval-selector label { padding: 6px 10px; font-size: 0.85em; }
 }
-
-/* Kleine aanpassing aan de mobiele grid voor cijfers, indien nodig */
 @media (max-width: 380px) {
-    .teller-item .counts-grid-mobile {
-         grid-template-columns: repeat(3, 1fr); /* Bv. 3 kolommen max */
-     }
-     .teller-item .total-count {
-         grid-column: 1 / -1; /* Zorg dat totaal altijd onderaan past */
-     }
+    .teller-item div.counts-grid-mobile { grid-template-columns: repeat(3, 1fr); }
+    .teller-item .counts-grid-mobile > span.total-count { grid-column: 1 / -1; }
 }
