@@ -3,36 +3,87 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Verkeer Teller</title>
-    <link rel="stylesheet" href="style.css"> </head>
+    <title>Straatvinken Teller</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap" rel="stylesheet">
+</head>
 <body>
 
-    <h1>Verkeer Teller</h1>
+    <header class="app-header">
+        <h1>Straatvinken Teller</h1>
+        <p>Tel het verkeer in jouw straat</p>
+    </header>
 
-    <div class="tellers">
-        <div class="teller-item">
-            <button id="btn-voetganger">Voetganger</button>
-            <span class="count" id="count-voetganger">0</span>
-        </div>
-        <div class="teller-item">
-            <button id="btn-fiets">Fiets</button>
-            <span class="count" id="count-fiets">0</span>
-        </div>
-        <div class="teller-item">
-            <button id="btn-auto">Auto</button>
-            <span class="count" id="count-auto">0</span>
-        </div>
-        <div class="teller-item">
-            <button id="btn-lichtevracht">Lichte Vracht</button>
-            <span class="count" id="count-lichtevracht">0</span>
-        </div>
-        <div class="teller-item">
-            <button id="btn-bus">Bus</button>
-            <span class="count" id="count-bus">0</span>
-        </div>
+    <div class="content-wrapper">
+        <section class="location-details">
+            <h2>Plaats van de telling</h2>
+            <div class="form-grid">
+                <label for="street">Straat:</label>
+                <input type="text" id="street" name="street">
+
+                <label for="number">Nummer:</label>
+                <input type="text" id="number" name="number">
+
+                <label for="postal_code">Postcode:</label>
+                <input type="text" id="postal_code" name="postal_code">
+
+                <label for="city">Gemeente/district:</label>
+                <input type="text" id="city" name="city">
+            </div>
+             <h2>Telrichting</h2>
+             <div class="direction-options">
+                 <label><input type="radio" name="direction" value="een"> één richting</label>
+                 <label><input type="radio" name="direction" value="beide"> beide richtingen</label>
+                 <label><input type="radio" name="direction" value="eenrichtingstraat"> eenrichtingsstraat</label>
+             </div>
+             <small>Let op: locatie en richting worden niet opgeslagen in deze versie.</small>
+        </section>
+
+        <section class="counters-section">
+            <h2>Tellingen</h2>
+            <div class="tellers">
+                <div class="teller-item">
+                    <button id="btn-voetganger" class="count-button">Voetganger</button>
+                    <span class="count" id="count-voetganger">0</span>
+                </div>
+                <div class="teller-item">
+                    <button id="btn-fiets" class="count-button">Fiets</button>
+                    <span class="count" id="count-fiets">0</span>
+                </div>
+                <div class="teller-item">
+                    <button id="btn-bakfiets" class="count-button">Bakfiets</button>
+                    <span class="count" id="count-bakfiets">0</span>
+                </div>
+                 <div class="teller-item">
+                    <button id="btn-auto_brommer" class="count-button">Auto/Brommer</button>
+                    <span class="count" id="count-auto_brommer">0</span>
+                </div>
+                <div class="teller-item">
+                    <button id="btn-bestelwagen" class="count-button">Bestelwagen</button>
+                    <span class="count" id="count-bestelwagen">0</span>
+                </div>
+                 <div class="teller-item">
+                    <button id="btn-vrachtwagen" class="count-button">Vrachtwagen</button>
+                    <span class="count" id="count-vrachtwagen">0</span>
+                </div>
+                <div class="teller-item">
+                    <button id="btn-bus_tram" class="count-button">Bus/Tram</button>
+                    <span class="count" id="count-bus_tram">0</span>
+                </div>
+                <div class="teller-item">
+                    <button id="btn-step" class="count-button">Step</button>
+                    <span class="count" id="count-step">0</span>
+                </div>
+            </div>
+             <button id="btn-reset" class="reset-button">Reset Tellers</button>
+        </section>
     </div>
 
-    <button id="btn-reset">Reset Tellers</button>
+    <footer class="app-footer">
+        <p>Geïnspireerd door Straatvinken. Geef officiële tellingen door via <a href="https://www.straatvinken.be/ingave" target="_blank">www.straatvinken.be/ingave</a> [cite: 3]</p>
+    </footer>
 
     <script src="script.js"></script> </body>
 </html>

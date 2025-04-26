@@ -1,11 +1,15 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Definieer de categorieën en hun bijbehorende element-ID's
+    // Definieer de NIEUWE categorieën en hun bijbehorende element-ID's
+    // Gebaseerd op PDF [cite: 2]
     const categories = {
         voetganger: { btnId: 'btn-voetganger', countId: 'count-voetganger' },
         fiets: { btnId: 'btn-fiets', countId: 'count-fiets' },
-        auto: { btnId: 'btn-auto', countId: 'count-auto' },
-        lichtevracht: { btnId: 'btn-lichtevracht', countId: 'count-lichtevracht' },
-        bus: { btnId: 'btn-bus', countId: 'count-bus' }
+        bakfiets: { btnId: 'btn-bakfiets', countId: 'count-bakfiets' },
+        auto_brommer: { btnId: 'btn-auto_brommer', countId: 'count-auto_brommer'},
+        bestelwagen: { btnId: 'btn-bestelwagen', countId: 'count-bestelwagen' },
+        vrachtwagen: { btnId: 'btn-vrachtwagen', countId: 'count-vrachtwagen'},
+        bus_tram: { btnId: 'btn-bus_tram', countId: 'count-bus_tram' },
+        step: { btnId: 'btn-step', countId: 'count-step' }
     };
 
     let counts = {}; // Object om de tellingen bij te houden
@@ -14,7 +18,10 @@ document.addEventListener('DOMContentLoaded', () => {
     function updateCountDisplay(category) {
         const countElement = document.getElementById(categories[category].countId);
         if (countElement) {
+            // Zorg ervoor dat de teller op 0 staat als deze nog niet bestaat
             countElement.textContent = counts[category] || 0;
+        } else {
+             console.warn(`Count element not found for category: ${category} (ID: ${categories[category].countId})`);
         }
     }
 
@@ -27,16 +34,23 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Functie om de tellingen op te slaan in localStorage
     function saveCounts() {
-        localStorage.setItem('trafficCounts', JSON.stringify(counts));
+        localStorage.setItem('straatvinkCounts', JSON.stringify(counts)); // Gebruik een unieke naam
     }
 
     // Functie om de tellingen te laden uit localStorage
     function loadCounts() {
-        const savedCounts = localStorage.getItem('trafficCounts');
+        const savedCounts = localStorage.getItem('straatvinkCounts');
         if (savedCounts) {
             counts = JSON.parse(savedCounts);
+             // Zorg ervoor dat alle categorieën bestaan in het 'counts' object,
+             // zelfs als ze nieuw zijn toegevoegd sinds de laatste keer opslaan.
+             for (const category in categories) {
+                if (!(category in counts)) {
+                    counts[category] = 0;
+                }
+            }
         } else {
-            // Initialiseer tellingen op 0 als er niets is opgeslagen
+            // Initialiseer alle tellingen op 0 als er niets is opgeslagen
             for (const category in categories) {
                 counts[category] = 0;
             }
@@ -53,6 +67,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 updateCountDisplay(category); // Werk de weergave bij
                 saveCounts(); // Sla de nieuwe tellingen op
             });
+        } else {
+             console.warn(`Button element not found for category: ${category} (ID: ${categories[category].btnId})`);
         }
     }
 
@@ -60,15 +76,17 @@ document.addEventListener('DOMContentLoaded', () => {
     const resetButton = document.getElementById('btn-reset');
     if (resetButton) {
         resetButton.addEventListener('click', () => {
-            if (confirm('Weet je zeker dat je alle tellers wilt resetten?')) {
+            // Vraag bevestiging
+            if (confirm('Weet je zeker dat je alle tellers wilt resetten? Deze actie kan niet ongedaan gemaakt worden.')) {
                 for (const category in categories) {
                     counts[category] = 0; // Reset alle tellers in het object
                 }
                 updateAllDisplays(); // Werk de weergave bij
-                saveCounts(); // Sla de geresette tellingen op (of verwijder de key)
-                // Alternatief: localStorage.removeItem('trafficCounts');
+                saveCounts(); // Sla de geresette tellingen op
             }
         });
+    } else {
+         console.warn(`Reset button not found (ID: btn-reset)`);
     }
 
     // Laad de tellingen wanneer de pagina geladen is
