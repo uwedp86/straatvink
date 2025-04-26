@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Straatvinken Teller</title>
+    <title>Straatvinken Teller (per kwartier)</title>
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,25 +13,22 @@
 
     <header class="app-header">
         <h1>Straatvinken Teller</h1>
-        <p>Tel het verkeer in jouw straat</p>
+        <p>Tel het verkeer per kwartier (17:00 - 18:00)</p>
     </header>
 
     <div class="content-wrapper">
         <section class="location-details">
-            <h2>Plaats van de telling</h2>
-            <div class="form-grid">
-                <label for="street">Straat:</label>
-                <input type="text" id="street" name="street">
-
-                <label for="number">Nummer:</label>
-                <input type="text" id="number" name="number">
-
-                <label for="postal_code">Postcode:</label>
-                <input type="text" id="postal_code" name="postal_code">
-
-                <label for="city">Gemeente/district:</label>
-                <input type="text" id="city" name="city">
-            </div>
+             <h2>Plaats van de telling</h2>
+             <div class="form-grid">
+                 <label for="street">Straat:</label>
+                 <input type="text" id="street" name="street">
+                 <label for="number">Nummer:</label>
+                 <input type="text" id="number" name="number">
+                 <label for="postal_code">Postcode:</label>
+                 <input type="text" id="postal_code" name="postal_code">
+                 <label for="city">Gemeente/district:</label>
+                 <input type="text" id="city" name="city">
+             </div>
              <h2>Telrichting</h2>
              <div class="direction-options">
                  <label><input type="radio" name="direction" value="een"> één richting</label>
@@ -42,47 +39,102 @@
         </section>
 
         <section class="counters-section">
-            <h2>Tellingen</h2>
+            <h2>Selecteer Kwartier & Tel</h2>
+            <div class="interval-selector">
+                <label>
+                    <input type="radio" name="interval" value="q1" checked> 17:00-17:15
+                </label>
+                <label>
+                    <input type="radio" name="interval" value="q2"> 17:15-17:30
+                </label>
+                <label>
+                    <input type="radio" name="interval" value="q3"> 17:30-17:45
+                </label>
+                <label>
+                    <input type="radio" name="interval" value="q4"> 17:45-18:00
+                </label>
+            </div>
+
             <div class="tellers">
-                <div class="teller-item">
+                <div class="teller-header">
+                    <span>Categorie</span>
+                    <span>Q1</span>
+                    <span>Q2</span>
+                    <span>Q3</span>
+                    <span>Q4</span>
+                    <span>Totaal</span>
+                </div>
+                <div class="teller-item" data-category="voetganger">
                     <button id="btn-voetganger" class="count-button">Voetganger</button>
-                    <span class="count" id="count-voetganger">0</span>
+                    <span class="count interval-count" id="count-voetganger-q1">0</span>
+                    <span class="count interval-count" id="count-voetganger-q2">0</span>
+                    <span class="count interval-count" id="count-voetganger-q3">0</span>
+                    <span class="count interval-count" id="count-voetganger-q4">0</span>
+                    <span class="count total-count" id="count-voetganger-total">0</span>
                 </div>
-                <div class="teller-item">
+                 <div class="teller-item" data-category="fiets">
                     <button id="btn-fiets" class="count-button">Fiets</button>
-                    <span class="count" id="count-fiets">0</span>
+                    <span class="count interval-count" id="count-fiets-q1">0</span>
+                    <span class="count interval-count" id="count-fiets-q2">0</span>
+                    <span class="count interval-count" id="count-fiets-q3">0</span>
+                    <span class="count interval-count" id="count-fiets-q4">0</span>
+                    <span class="count total-count" id="count-fiets-total">0</span>
                 </div>
-                <div class="teller-item">
+                 <div class="teller-item" data-category="bakfiets">
                     <button id="btn-bakfiets" class="count-button">Bakfiets</button>
-                    <span class="count" id="count-bakfiets">0</span>
+                    <span class="count interval-count" id="count-bakfiets-q1">0</span>
+                    <span class="count interval-count" id="count-bakfiets-q2">0</span>
+                    <span class="count interval-count" id="count-bakfiets-q3">0</span>
+                    <span class="count interval-count" id="count-bakfiets-q4">0</span>
+                    <span class="count total-count" id="count-bakfiets-total">0</span>
                 </div>
-                 <div class="teller-item">
+                <div class="teller-item" data-category="auto_brommer">
                     <button id="btn-auto_brommer" class="count-button">Auto/Brommer</button>
-                    <span class="count" id="count-auto_brommer">0</span>
+                    <span class="count interval-count" id="count-auto_brommer-q1">0</span>
+                    <span class="count interval-count" id="count-auto_brommer-q2">0</span>
+                    <span class="count interval-count" id="count-auto_brommer-q3">0</span>
+                    <span class="count interval-count" id="count-auto_brommer-q4">0</span>
+                    <span class="count total-count" id="count-auto_brommer-total">0</span>
                 </div>
-                <div class="teller-item">
+                <div class="teller-item" data-category="bestelwagen">
                     <button id="btn-bestelwagen" class="count-button">Bestelwagen</button>
-                    <span class="count" id="count-bestelwagen">0</span>
+                    <span class="count interval-count" id="count-bestelwagen-q1">0</span>
+                    <span class="count interval-count" id="count-bestelwagen-q2">0</span>
+                    <span class="count interval-count" id="count-bestelwagen-q3">0</span>
+                    <span class="count interval-count" id="count-bestelwagen-q4">0</span>
+                    <span class="count total-count" id="count-bestelwagen-total">0</span>
                 </div>
-                 <div class="teller-item">
+                 <div class="teller-item" data-category="vrachtwagen">
                     <button id="btn-vrachtwagen" class="count-button">Vrachtwagen</button>
-                    <span class="count" id="count-vrachtwagen">0</span>
+                    <span class="count interval-count" id="count-vrachtwagen-q1">0</span>
+                    <span class="count interval-count" id="count-vrachtwagen-q2">0</span>
+                    <span class="count interval-count" id="count-vrachtwagen-q3">0</span>
+                    <span class="count interval-count" id="count-vrachtwagen-q4">0</span>
+                    <span class="count total-count" id="count-vrachtwagen-total">0</span>
                 </div>
-                <div class="teller-item">
+                <div class="teller-item" data-category="bus_tram">
                     <button id="btn-bus_tram" class="count-button">Bus/Tram</button>
-                    <span class="count" id="count-bus_tram">0</span>
+                    <span class="count interval-count" id="count-bus_tram-q1">0</span>
+                    <span class="count interval-count" id="count-bus_tram-q2">0</span>
+                    <span class="count interval-count" id="count-bus_tram-q3">0</span>
+                    <span class="count interval-count" id="count-bus_tram-q4">0</span>
+                    <span class="count total-count" id="count-bus_tram-total">0</span>
                 </div>
-                <div class="teller-item">
+                <div class="teller-item" data-category="step">
                     <button id="btn-step" class="count-button">Step</button>
-                    <span class="count" id="count-step">0</span>
+                    <span class="count interval-count" id="count-step-q1">0</span>
+                    <span class="count interval-count" id="count-step-q2">0</span>
+                    <span class="count interval-count" id="count-step-q3">0</span>
+                    <span class="count interval-count" id="count-step-q4">0</span>
+                    <span class="count total-count" id="count-step-total">0</span>
                 </div>
             </div>
-             <button id="btn-reset" class="reset-button">Reset Tellers</button>
+             <button id="btn-reset" class="reset-button">Reset Alle Tellers</button>
         </section>
     </div>
 
     <footer class="app-footer">
-        <p>Geïnspireerd door Straatvinken. Geef officiële tellingen door via <a href="https://www.straatvinken.be/ingave" target="_blank">www.straatvinken.be/ingave</a> [cite: 3]</p>
+        <p>Geïnspireerd door Straatvinken. Geef officiële tellingen door via <a href="https://www.straatvinken.be/ingave" target="_blank">www.straatvinken.be/ingave</a></p>
     </footer>
 
     <script src="script.js"></script> </body>

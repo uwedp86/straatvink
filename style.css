@@ -107,20 +107,13 @@ h2 {
 
 
 /* Counters Section */
+.counters-section h2 {
+    margin-bottom: 10px; /* Minder ruimte onder H2 hier */
+}
+
 .tellers {
     width: 100%;
     margin-bottom: 20px;
-}
-
-.teller-item {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #fff; /* Kept white for clarity inside the section */
-    padding: 12px 15px;
-    margin-bottom: 10px;
-    border-radius: var(--border-radius);
-    border: 1px solid var(--light-gray); /* Subtle border */
 }
 
 .count-button {
@@ -132,8 +125,8 @@ h2 {
     border-radius: 5px;
     background-color: var(--secondary-color);
     color: white;
-    flex-grow: 1;
-    margin-right: 15px;
+    flex-grow: 1; /* Nog nodig? Misschien niet met grid */
+    /* margin-right: 15px; */ /* Verwijderd voor grid */
     text-align: left; /* Align text left for consistency */
     transition: background-color 0.2s ease;
 }
@@ -149,7 +142,7 @@ h2 {
 .count {
     font-size: 1.6em;
     font-weight: bold;
-    min-width: 40px;
+    min-width: 40px; /* Kan misschien weg met grid */
     text-align: right;
     color: var(--primary-color);
 }
@@ -175,6 +168,110 @@ h2 {
     background-color: #cc8400;
 }
 
+/* --- NIEUWE STIJLEN voor Interval Teller --- */
+
+/* Interval Selector Styling */
+.interval-selector {
+    display: flex;
+    flex-wrap: wrap; /* Zorgt dat het netjes onder elkaar gaat op kleine schermen */
+    gap: 10px; /* Iets minder gap */
+    margin-bottom: 25px;
+    background-color: var(--light-gray);
+    padding: 15px;
+    border-radius: var(--border-radius);
+    justify-content: center; /* Centreer de knoppen */
+}
+
+.interval-selector label {
+    cursor: pointer;
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: var(--white);
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    display: inline-flex; /* zorgt dat radio en tekst samen blijven */
+    align-items: center;
+    font-size: 0.9em; /* Iets kleiner font */
+}
+
+.interval-selector input[type="radio"] {
+   margin-right: 6px;
+   accent-color: var(--primary-color); /* Kleur van het bolletje */
+   /* Verberg de standaard radio button visueel (optioneel, voor custom look) */
+   /* appearance: none;
+   -webkit-appearance: none;
+   width: 0;
+   height: 0;
+   opacity: 0;
+   position: absolute; */
+}
+
+/* Visuele feedback voor geselecteerd interval */
+.interval-selector label:has(input[type="radio"]:checked) { /* Stijl de hele label als geselecteerd */
+    background-color: var(--primary-color);
+    color: var(--white);
+    border-color: var(--primary-color);
+}
+
+
+/* Teller Header Styling */
+.teller-header {
+    display: grid;
+    grid-template-columns: 2fr repeat(5, 1fr); /* Categorie (breder), Q1-Q4, Totaal */
+    gap: 5px;
+    padding: 8px 15px; /* Iets minder padding */
+    font-weight: bold;
+    font-size: 0.85em; /* Header iets kleiner */
+    color: #555; /* Iets minder opvallende kleur */
+    border-bottom: 2px solid var(--light-gray);
+    margin-bottom: 10px;
+    text-align: right;
+}
+
+.teller-header span:first-child {
+    text-align: left; /* Categorie links uitlijnen */
+}
+
+
+/* Teller Item Grid Styling */
+.teller-item {
+    display: grid; /* Veranderd van flex naar grid */
+    grid-template-columns: 2fr repeat(5, 1fr); /* Categorie knop (breder), Q1-Q4, Totaal */
+    gap: 5px; /* Ruimte tussen kolommen */
+    align-items: center; /* Centreer items verticaal */
+    margin-bottom: 0; /* Geen margin-bottom meer */
+    padding: 10px 15px; /* Padding consistent met header */
+    border: none;
+    border-bottom: 1px solid var(--light-gray); /* Subtiele lijn tussen rijen */
+}
+.teller-item:last-child {
+    border-bottom: none; /* Geen lijn onder de laatste */
+}
+
+.teller-item .count-button {
+    margin-right: 0; /* Geen marge meer nodig door grid */
+    grid-column: 1 / 2; /* Knop in de eerste kolom */
+}
+
+.teller-item .count {
+    text-align: right; /* Lijn alle tellingen rechts uit */
+    padding: 5px; /* beetje padding voor de cijfers */
+    font-size: 1.1em; /* Iets kleinere cijfers dan voorheen */
+    min-width: auto; /* Geen min-width nodig */
+}
+
+.teller-item .interval-count {
+    color: var(--text-color); /* Standaard tekstkleur voor kwartiertellingen */
+    background-color: #f0f0f0; /* Lichte achtergrond om ze te onderscheiden */
+    border-radius: 4px;
+}
+
+.teller-item .total-count {
+    font-weight: bold; /* Totaal vetgedrukt */
+    color: var(--primary-color); /* Totaal in primaire kleur */
+    font-size: 1.2em; /* Totaal iets groter */
+}
+
 
 /* Footer */
 .app-footer {
@@ -195,8 +292,86 @@ h2 {
     text-decoration: underline;
 }
 
-/* Responsive Adjustments */
-@media (max-width: 600px) {
+/* --- Responsive aanpassingen --- */
+@media (max-width: 768px) { /* Iets eerder de layout aanpassen */
+    .content-wrapper {
+        grid-template-columns: 1fr; /* Altijd enkele kolom */
+    }
+
+    .teller-header {
+        display: none; /* Verberg header op kleine schermen */
+    }
+
+    .teller-item {
+        /* Simpelere layout op smalle schermen: knop boven, cijfers eronder in een grid */
+        grid-template-columns: 1fr; /* Knop en dan cijfers onder elkaar */
+        padding: 15px 10px; /* Meer verticale padding */
+        border-bottom: 1px solid var(--light-gray);
+        margin-bottom: 0; /* Geen extra ruimte tussen items */
+    }
+
+    .teller-item .count-button {
+        grid-column: 1 / -1; /* Knop over volledige breedte */
+        margin-bottom: 10px; /* Ruimte tussen knop en cijfers */
+        text-align: center;
+    }
+
+    /* Grid voor de cijfers op mobiel */
+    .teller-item > span.count { /* Selecteer alleen de span.count elementen */
+        display: grid; /* Maak een grid container van de spans */
+        grid-column: 1 / -1; /* Laat de grid de volledige breedte innemen */
+        grid-template-columns: repeat(5, 1fr); /* 5 kolommen voor Q1-Q4 + Totaal */
+        gap: 5px;
+        width: 100%;
+        padding: 0; /* Reset padding */
+    }
+
+    /* Styling voor elk cijfer binnen de mobiele grid */
+     .teller-item .count span { /* Targeting spans *inside* the .count span is tricky - rethink HTML or use below */
+         /* This approach assumes spans are direct children of teller-item, which was adjusted */
+     }
+     /* Corrected approach targeting direct span children after button */
+     .teller-item > span.count {
+         /* Existing styles for the number itself */
+         display: inline-block; /* Fallback/adjust if grid not working */
+         width: auto; /* Laat grid dit bepalen */
+         text-align: center;
+         font-size: 1.1em;
+         padding: 5px 3px;
+         box-sizing: border-box;
+         border: 1px solid #eee;
+         border-radius: 4px;
+         background-color: #f0f0f0; /* Consistent background */
+         position: relative; /* Voor het ::before element */
+         min-height: 45px; /* Zorg voor voldoende hoogte */
+         margin-bottom: 5px; /* Ruimte onder elk cijferblokje */
+     }
+     .teller-item > span.total-count {
+         font-size: 1.2em;
+         background-color: var(--light-gray); /* Totaal andere achtergrond */
+         color: var(--primary-color);
+         font-weight: bold;
+     }
+
+     .teller-item > span.count::before { /* Labels toevoegen voor context */
+         content: attr(data-label); /* Gebruik het data-label uit JS */
+         display: block;
+         font-size: 0.7em;
+         color: #666;
+         margin-bottom: 2px;
+         font-weight: normal;
+         position: absolute; /* Positioneer label bovenaan */
+         top: 3px;
+         left: 3px;
+         right: 3px; /* Centreer tekst */
+         text-align: center;
+     }
+      .teller-item > span.count {
+         padding-top: 18px; /* Maak ruimte voor het ::before label */
+     }
+}
+
+@media (max-width: 480px) {
     .app-header h1 {
         font-size: 1.6em;
     }
@@ -208,13 +383,25 @@ h2 {
         margin-bottom: -5px; /* Reduce space when stacked */
     }
     .count-button {
-        padding: 8px 12px;
-        font-size: 0.9em;
+        padding: 10px 12px; /* Iets groter op kleine mobiel */
+        font-size: 1em;
     }
-    .count {
-        font-size: 1.4em;
+     .interval-selector {
+        gap: 8px; /* Minder gap tussen interval knoppen */
+        padding: 10px;
     }
-    .teller-item {
-        padding: 10px 12px;
+    .interval-selector label {
+        padding: 6px 10px;
+        font-size: 0.85em;
     }
+
+    /* Further refinement for very small mobile number grid */
+    .teller-item > span.count {
+       font-size: 1em;
+       min-height: 40px;
+       padding-top: 16px;
+    }
+     .teller-item > span.count::before {
+        font-size: 0.65em;
+     }
 }
