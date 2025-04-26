@@ -1,74 +1,228 @@
-body {
-    font-family: sans-serif;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
-    background-color: #f4f4f4;
+/* Straatvinken Inspired Styling */
+:root {
+    --primary-color: #008080; /* Teal/Greenish */
+    --secondary-color: #4682B4; /* Steel Blue */
+    --accent-color: #FFA500; /* Orange Accent */
+    --background-color: #f8f9fa;
+    --text-color: #333;
+    --light-gray: #e9ecef;
+    --white: #fff;
+    --border-radius: 8px;
+    --box-shadow: 0 2px 5px rgba(0,0,0,0.1);
 }
 
-h1 {
-    color: #333;
+body {
+    font-family: 'Lato', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+.app-header {
+    background-color: var(--primary-color);
+    color: var(--white);
+    padding: 20px;
+    text-align: center;
+    box-shadow: var(--box-shadow);
+}
+
+.app-header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+.app-header p {
+    margin: 5px 0 0;
+    font-size: 1em;
+}
+
+.content-wrapper {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr; /* Single column on small screens */
+    gap: 30px;
+}
+
+@media (min-width: 768px) {
+    .content-wrapper {
+        grid-template-columns: 1fr 1fr; /* Two columns on larger screens */
+    }
+}
+
+h2 {
+    color: var(--primary-color);
+    border-bottom: 2px solid var(--light-gray);
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+}
+
+/* Location Details Section */
+.location-details, .counters-section {
+    background-color: var(--white);
+    padding: 20px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: auto 1fr; /* Label and input */
+    gap: 10px 15px;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.form-grid label {
+    font-weight: bold;
+    text-align: right;
+}
+
+.form-grid input[type="text"] {
+    padding: 8px;
+    border: 1px solid var(--light-gray);
+    border-radius: 4px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.direction-options label {
+    display: block;
+    margin-bottom: 8px;
+    cursor: pointer;
+}
+.direction-options input[type="radio"] {
+    margin-right: 8px;
+}
+
+.location-details small {
+    display: block;
+    margin-top: 15px;
+    color: #777;
+    font-style: italic;
+}
+
+
+/* Counters Section */
+.counters-section h2 {
+    margin-bottom: 10px; /* Minder ruimte onder H2 hier */
 }
 
 .tellers {
     width: 100%;
-    max-width: 400px; /* Maximale breedte voor leesbaarheid */
     margin-bottom: 20px;
+    display: grid;
+    grid-template-columns: minmax(160px, 2fr) repeat(5, minmax(40px, 1fr));
+    gap: 0 5px;
+    border-bottom: 2px solid var(--light-gray);
 }
 
-.teller-item {
-    display: flex;
-    justify-content: space-between; /* Knoppen links, tellers rechts */
-    align-items: center;
-    background-color: #fff;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-}
-
-button {
-    padding: 15px 20px;
-    font-size: 1.1em;
+.count-button {
+    padding: 10px 15px;
+    font-size: 1em;
+    font-weight: bold;
     cursor: pointer;
     border: none;
     border-radius: 5px;
-    background-color: #007bff;
+    background-color: var(--secondary-color);
     color: white;
-    flex-grow: 1; /* Laat knop groeien */
-    margin-right: 15px; /* Ruimte tussen knop en teller */
+    text-align: left;
+    transition: background-color 0.2s ease;
+    width: 100%;
+    box-sizing: border-box;
+    /* NIEUW: voor uitlijning icoon + tekst */
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
-button:active { /* Visuele feedback bij klikken */
-    background-color: #0056b3;
+/* NIEUW: Ruimte naast het icoon */
+.count-button i {
+  margin-right: 8px;
+}
+
+
+.count-button:hover {
+     background-color: #366a94;
+}
+
+.count-button:active {
+    background-color: #2a5271;
 }
 
 .count {
-    font-size: 1.5em;
-    font-weight: bold;
-    min-width: 30px; /* Zorgt dat de layout stabiel blijft */
     text-align: right;
+    padding: 5px;
+    font-size: 1.1em;
+    border-radius: 4px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    min-height: 40px;
 }
 
-#btn-reset {
-    background-color: #dc3545;
-    margin-top: 20px;
-    width: 100%;
-    max-width: 400px; /* Zelfde breedte als tellers */
+.reset-button {
+    display: block; width: 100%; padding: 12px 20px; font-size: 1.1em; cursor: pointer; border: none; border-radius: 5px; background-color: var(--accent-color); color: white; margin-top: 20px; transition: background-color 0.2s ease;
 }
+.reset-button:hover { background-color: #e69500; }
+.reset-button:active { background-color: #cc8400; }
 
-#btn-reset:active {
-    background-color: #c82333;
+/* Interval Selector Styling */
+.interval-selector { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 25px; background-color: var(--light-gray); padding: 15px; border-radius: var(--border-radius); justify-content: center; }
+.interval-selector label { cursor: pointer; padding: 8px 12px; border: 1px solid #ccc; border-radius: 5px; background-color: var(--white); transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease; display: inline-flex; align-items: center; font-size: 0.9em; }
+.interval-selector input[type="radio"] { margin-right: 6px; accent-color: var(--primary-color); }
+.interval-selector label:has(input[type="radio"]:checked) { background-color: var(--primary-color); color: var(--white); border-color: var(--primary-color); }
+
+/* Teller Header */
+.teller-header { grid-column: 1 / -1; display: contents; font-weight: bold; font-size: 0.85em; color: #555; }
+.teller-header span { padding: 8px 5px; text-align: right; border-bottom: 2px solid var(--light-gray); }
+.teller-header span:first-child { text-align: left; }
+
+/* Teller Item */
+.teller-item { grid-column: 1 / -1; display: contents; }
+
+/* Cellen binnen Teller Item */
+.teller-item > * { padding: 10px 5px; border-bottom: 1px solid var(--light-gray); display: flex; align-items: center; }
+.teller-item:last-child > * { border-bottom: none; }
+.teller-item .count-button { justify-content: flex-start; padding: 5px 10px; } /* Override algemene .teller-item > * padding */
+.teller-item .count { justify-content: flex-end; font-size: 1.1em; min-height: auto; }
+.teller-item .interval-count { color: var(--text-color); background-color: #f0f0f0; }
+.teller-item .total-count { font-weight: bold; color: var(--primary-color); font-size: 1.2em; background-color: #e9fafa; }
+
+/* Footer */
+.app-footer { text-align: center; margin-top: 40px; padding: 20px; font-size: 0.9em; color: #555; border-top: 1px solid var(--light-gray); }
+.app-footer a { color: var(--primary-color); text-decoration: none; }
+.app-footer a:hover { text-decoration: underline; }
+
+/* --- Responsive aanpassingen --- */
+@media (max-width: 768px) {
+    .tellers { display: block; border-bottom: none; }
+    .teller-header { display: none; }
+    .teller-item { display: block; grid-column: auto; margin-bottom: 20px; padding: 15px; border: 1px solid var(--light-gray); border-radius: var(--border-radius); background-color: var(--white); }
+    .teller-item > * { border-bottom: none; padding: 0; display: block; align-items: stretch; min-height: auto; }
+    /* Behoud display: inline-flex voor de knop op mobiel */
+    .teller-item .count-button { width: 100%; margin-bottom: 10px; text-align: center; padding: 10px 15px; display: inline-flex; align-items: center; justify-content: center; /* Centreer icoon+tekst */ }
+    .teller-item .count-button i { margin-right: 8px; } /* Behoud ruimte */
+
+    /* Grid voor de cijfers op mobiel */
+    .teller-item div.counts-grid-mobile { display: grid; grid-template-columns: repeat(auto-fit, minmax(50px, 1fr)); gap: 5px; width: 100%; }
+     /* Styling voor elk cijfer binnen de mobiele grid */
+     .teller-item .counts-grid-mobile > span.count { text-align: center; font-size: 1.1em; padding: 5px 3px; box-sizing: border-box; border: 1px solid #eee; border-radius: 4px; background-color: #f0f0f0; position: relative; min-height: 45px; display: flex; flex-direction: column; justify-content: center; align-items: center; padding-top: 18px; }
+     .teller-item .counts-grid-mobile > span.total-count { font-size: 1.2em; background-color: var(--light-gray); color: var(--primary-color); font-weight: bold; grid-column: 1 / -1; margin-top: 5px; }
+     .teller-item .counts-grid-mobile > span.count::before { content: attr(data-label); display: block; font-size: 0.7em; color: #666; font-weight: normal; position: absolute; top: 3px; left: 3px; right: 3px; text-align: center; }
 }
-
-/* Media query voor eventuele aanpassingen op kleinere schermen indien nodig */
-@media (max-width: 600px) {
-    button {
-        padding: 12px 15px;
-        font-size: 1em;
-    }
-    .teller-item {
-        padding: 12px;
-    }
+@media (max-width: 480px) {
+     .form-grid { grid-template-columns: 1fr; }
+     .form-grid label { text-align: left; margin-bottom: -5px; }
+     .count-button { padding: 10px 12px; font-size: 1em; }
+     .interval-selector { gap: 8px; padding: 10px; }
+     .interval-selector label { padding: 6px 10px; font-size: 0.85em; }
+}
+@media (max-width: 380px) {
+    .teller-item div.counts-grid-mobile { grid-template-columns: repeat(3, 1fr); }
+    .teller-item .counts-grid-mobile > span.total-count { grid-column: 1 / -1; }
 }
